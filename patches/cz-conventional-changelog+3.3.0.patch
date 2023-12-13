@@ -1,0 +1,79 @@
+diff --git a/node_modules/cz-conventional-changelog/engine.js b/node_modules/cz-conventional-changelog/engine.js
+index 24a42b7..adefe57 100644
+--- a/node_modules/cz-conventional-changelog/engine.js
++++ b/node_modules/cz-conventional-changelog/engine.js
+@@ -80,6 +80,7 @@ module.exports = function(options) {
+           name: 'scope',
+           message:
+             'What is the scope of this change (e.g. component or file name): (press enter to skip)',
++          when: () => false,
+           default: options.defaultScope,
+           filter: function(value) {
+             return options.disableScopeLowerCase
+@@ -127,12 +128,14 @@ module.exports = function(options) {
+           name: 'body',
+           message:
+             'Provide a longer description of the change: (press enter to skip)\n',
+-          default: options.defaultBody
++          when: () => false,
++          default: options.defaultBody,
+         },
+         {
+           type: 'confirm',
+           name: 'isBreaking',
+           message: 'Are there any breaking changes?',
++          when: () => false,
+           default: false
+         },
+         {
+@@ -163,7 +166,7 @@ module.exports = function(options) {
+         {
+           type: 'confirm',
+           name: 'isIssueAffected',
+-          message: 'Does this change affect any open issues?',
++          message: 'Is this change related to any closed PR?',
+           default: options.defaultIssues ? true : false
+         },
+         {
+@@ -172,16 +175,12 @@ module.exports = function(options) {
+           default: '-',
+           message:
+             'If issues are closed, the commit requires a body. Please enter a longer description of the commit itself:\n',
+-          when: function(answers) {
+-            return (
+-              answers.isIssueAffected && !answers.body && !answers.breakingBody
+-            );
+-          }
++          when: () => false,
+         },
+         {
+           type: 'input',
+           name: 'issues',
+-          message: 'Add issue references (e.g. "fix #123", "re #123".):\n',
++          message: 'Add PR reference (e.g. "#123", "#453".):\n',
+           when: function(answers) {
+             return answers.isIssueAffected;
+           },
+@@ -199,8 +198,10 @@ module.exports = function(options) {
+         // parentheses are only needed when a scope is present
+         var scope = answers.scope ? '(' + answers.scope + ')' : '';
+ 
++        var issues = answers.issues ? ' (' + answers.issues + ')' : '';
++
+         // Hard limit this line in the validate
+-        var head = answers.type + scope + ': ' + answers.subject;
++        var head = answers.type + scope + ': ' + answers.subject + issues;
+ 
+         // Wrap these lines at options.maxLineWidth characters
+         var body = answers.body ? wrap(answers.body, wrapOptions) : false;
+@@ -212,9 +213,7 @@ module.exports = function(options) {
+           : '';
+         breaking = breaking ? wrap(breaking, wrapOptions) : false;
+ 
+-        var issues = answers.issues ? wrap(answers.issues, wrapOptions) : false;
+-
+-        commit(filter([head, body, breaking, issues]).join('\n\n'));
++        commit(filter([head, body, breaking]).join('\n\n'));
+       });
+     }
+   };
