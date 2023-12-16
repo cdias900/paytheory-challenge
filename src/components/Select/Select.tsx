@@ -1,20 +1,20 @@
-import { useState } from 'react';
-
 import { SelectContainer, SelectOption } from './Select.styles';
+import { SelectProps } from './Select.types';
 
-export const Select = () => {
-  const [paymentMethod, setPaymentMethod] = useState<'card' | 'ach'>('card');
-
+export const Select = ({
+  paymentMethod,
+  onUpdatePaymentMethod,
+}: SelectProps) => {
   return (
     <SelectContainer>
       <SelectOption
         selected={paymentMethod === 'card'}
-        onClick={() => setPaymentMethod('card')}>
+        onClick={() => onUpdatePaymentMethod('card')}>
         Card
       </SelectOption>
       <SelectOption
         selected={paymentMethod === 'ach'}
-        onClick={() => setPaymentMethod('ach')}>
+        onClick={() => onUpdatePaymentMethod('ach')}>
         ACH
       </SelectOption>
     </SelectContainer>

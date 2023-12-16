@@ -1,4 +1,4 @@
-export type FormDataKeys =
+export type FormDataKeysType =
   | 'firstName'
   | 'lastName'
   | 'email'
@@ -18,6 +18,6 @@ export type FormDataKeys =
   | 'billingState'
   | 'billingZipcode';
 
-export type FormData = {
-  [key in FormDataKeys]: string;
+export type FormDataType = {
+  [key in FormDataKeysType]: string;
 };

@@ -1,9 +1,11 @@
-import { AddressInputs } from 'components/AddressInputs';
-import { Checkbox } from 'components/Checkbox';
-import { FormGroup } from 'components/FormGroup';
-import { SectionTitle } from 'components/SectionTitle';
-import { Select } from 'components/Select';
-import { TermsOfService } from 'components/TermsOfService';
+import {
+  AddressInputs,
+  Checkbox,
+  FormGroup,
+  SectionTitle,
+  Select,
+  TermsOfService,
+} from 'components';
 
 import {
   CardCVVInput,
@@ -21,57 +23,77 @@ import {
 import { useContentRight } from './hooks';
 
 export const ContentRight = () => {
-  const { checked, onClickCheckbox, onFormSubmit, formData, onUpdateFormData } =
-    useContentRight();
+  const {
+    checked,
+    onClickCheckbox,
+    onFormSubmit,
+    formData,
+    formErrors,
+    onUpdateFormData,
+    paymentMethod,
+    onUpdatePaymentMethod,
+  } = useContentRight();
 
   return (
     <Container>
       <SectionTitle>Select Payment Method</SectionTitle>
-      <Select />
+      <Select
+        paymentMethod={paymentMethod}
+        onUpdatePaymentMethod={onUpdatePaymentMethod}
+      />
       <form onSubmit={onFormSubmit}>
         <FormGroup title="Contact Information">
           <InputRow>
             <FirstNameInput
               value={formData.firstName}
               onChange={e => onUpdateFormData('firstName', e.target.value)}
+              error={formErrors.firstName}
             />
             <LastNameInput
               value={formData.lastName}
               onChange={e => onUpdateFormData('lastName', e.target.value)}
+              error={formErrors.lastName}
             />
           </InputRow>
           <EmailInput
             value={formData.email}
             onChange={e => onUpdateFormData('email', e.target.value)}
+            error={formErrors.email}
           />
           <PhoneNumberInput
             value={formData.phoneNumber}
             onChange={e => onUpdateFormData('phoneNumber', e.target.value)}
+            error={formErrors.phoneNumber}
           />
         </FormGroup>
         <FormGroup title="Home Address">
           <AddressInputs
             formData={formData}
             onUpdateFormData={onUpdateFormData}
+            formErrors={formErrors}
           />
         </FormGroup>
         <FormGroup title="Card Information">
           <CardNameInput
             value={formData.cardName}
             onChange={e => onUpdateFormData('cardName', e.target.value)}
+            error={formErrors.cardName}
           />
           <InputRow>
             <CardNumberInput
               value={formData.cardNumber}
               onChange={e => onUpdateFormData('cardNumber', e.target.value)}
+              error={formErrors.cardNumber}
             />
             <CardExpInput
               value={formData.cardExp}
               onChange={e => onUpdateFormData('cardExp', e.target.value)}
+              error={formErrors.cardExp}
             />
             <CardCVVInput
               value={formData.cardCVV}
               onChange={e => onUpdateFormData('cardCVV', e.target.value)}
+              error={formErrors.cardCVV}
             />
           </InputRow>
         </FormGroup>
@@ -86,6 +108,7 @@ export const ContentRight = () => {
               billing
               formData={formData}
               onUpdateFormData={onUpdateFormData}
+              formErrors={formErrors}
             />
           )}
         </FormGroup>

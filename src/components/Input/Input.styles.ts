@@ -1,11 +1,16 @@
 import styled from 'styled-components';
 
-export const StyledInput = styled.input`
-  flex: 1;
+import { ReactComponent as AlertCircle } from 'assets/alert-circle.svg';
+
+type InputProps = {
+  $error: boolean;
+};
+
+export const StyledInput = styled.input<InputProps>`
   border-radius: 8px;
   outline: none;
-  border: 1px solid #ced9e6;
-  background-color: #fbfdff;
+  border: 1px solid ${({ $error }) => ($error ? '#FFECE3' : '#ced9e6')};
+  background-color: ${({ $error }) => ($error ? '#FFFAFA' : '#fbfdff')};
   padding: 4px 8px;
   font-size: 14px;
   font-weight: 400;
@@ -15,4 +20,28 @@ export const StyledInput = styled.input`
   &::placeholder {
     color: #94999e;
   }
+`;
+
+export const InputContainer = styled.div`
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+`;
+
+export const ErrorText = styled.span`
+  margin-top: 2px;
+  margin-left: 8px;
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 18px;
+  color: #ff3e1b;
+`;
+
+export const ErrorIcon = styled(AlertCircle)`
+  width: 16px;
+  height: 16px;
+  position: absolute;
+  right: 8px;
+  top: 6px;
 `;

@@ -1,7 +1,8 @@
-import { FormData, FormDataKeys } from 'types/FormData';
+import { FormDataType, FormDataKeysType } from 'types/FormData';
 
 export type AddressInputsProps = {
   billing?: boolean;
-  formData: FormData;
-  onUpdateFormData: (key: FormDataKeys, value: string) => void;
+  formData: FormDataType;
+  formErrors: Partial<FormDataType>;
+  onUpdateFormData: (key: FormDataKeysType, value: string) => void;
 };

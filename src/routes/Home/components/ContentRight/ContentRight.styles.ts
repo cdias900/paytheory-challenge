@@ -26,42 +26,39 @@ export const InputRow = styled.div`
 
 export const FirstNameInput = styled(Input).attrs({
   placeholder: 'First Name',
-  required: true,
 })``;
 
 export const LastNameInput = styled(Input).attrs({
   placeholder: 'Last Name',
-  required: true,
 })``;
 
 export const EmailInput = styled(Input).attrs({
   placeholder: 'Email',
   type: 'email',
-  required: true,
 })``;
 
 export const PhoneNumberInput = styled(Input).attrs({
   placeholder: 'Phone Number (optional)',
+  mask: '(999) 999-9999',
 })``;
 
 export const CardNameInput = styled(Input).attrs({
   placeholder: 'Name on Card',
-  required: true,
 })``;
 
 export const CardNumberInput = styled(Input).attrs({
   placeholder: 'Card Number',
-  required: true,
+  mask: '9999 9999 9999 9999',
 })``;
 
 export const CardExpInput = styled(Input).attrs({
   placeholder: 'MM/YY',
-  required: true,
+  mask: '99/99',
 })``;
 
 export const CardCVVInput = styled(Input).attrs({
   placeholder: 'CVV',
-  required: true,
+  mask: '9999',
 })``;
 
 export const PayButton = styled.button.attrs({

@@ -1,7 +1,6 @@
 import { Fragment } from 'react';
 
-import { Footer } from 'components/Footer';
-import { SectionTitle } from 'components/SectionTitle';
+import { Footer, SectionTitle } from 'components';
 
 import {
   AmountCurrency,
