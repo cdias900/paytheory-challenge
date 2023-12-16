@@ -1,9 +1,8 @@
-import { InputRow } from 'routes/Home/components/ContentRight/ContentRight.styles';
-
 import {
   Address1Input,
   Address2Input,
   CityInput,
+  InputRow,
   StateInput,
   ZipcodeInput,
 } from './AddressInputs.styles';

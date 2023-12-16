@@ -10,18 +10,13 @@ export const Container = styled.section`
   padding: 40px 32px;
   display: flex;
   flex-direction: column;
+  max-width: calc(50% - 32px);
 `;
 
-// TODO: Fix inputs width
 export const InputRow = styled.div`
-  flex-grow: 1;
-  gap: 12px;
-  /* display: grid;
-  grid-auto-flow: column;
-  grid-template-columns: repeat(2, 1fr);
-  grid-auto-columns: 1fr; */
   display: flex;
   flex-direction: row;
+  gap: 12px;
 `;
 
 export const FirstNameInput = styled(Input).attrs({
@@ -49,17 +44,26 @@ export const CardNameInput = styled(Input).attrs({
 export const CardNumberInput = styled(Input).attrs({
   placeholder: 'Card Number',
   mask: '9999 9999 9999 9999',
-})``;
+})`
+  flex: unset;
+  width: 50%;
+`;
 
 export const CardExpInput = styled(Input).attrs({
   placeholder: 'MM/YY',
   mask: '99/99',
-})``;
+})`
+  flex: unset;
+  width: calc(25% - 12px);
+`;
 
 export const CardCVVInput = styled(Input).attrs({
   placeholder: 'CVV',
   mask: '9999',
-})``;
+})`
+  flex: unset;
+  width: calc(25% - 12px);
+`;
 
 export const PayButton = styled.button.attrs({
   type: 'submit',

@@ -6,6 +6,7 @@ export const Container = styled.section`
   color: #1b1b1b;
   display: flex;
   flex-direction: column;
+  max-width: calc(50% - 32px);
 `;
 
 export const MerchantNameText = styled.span`

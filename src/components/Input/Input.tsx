@@ -15,11 +15,11 @@ export const Input = ({
   mask = '',
   error,
   onChange,
-  style,
+  className,
   ...rest
 }: InputHTMLAttributes<HTMLInputElement> & InputProps) => {
   return (
-    <InputContainer style={style}>
+    <InputContainer className={className}>
       <InputMask
         mask={mask}
         value={value}
