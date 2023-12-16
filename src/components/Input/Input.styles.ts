@@ -45,3 +45,23 @@ export const ErrorIcon = styled(AlertCircle)`
   right: 8px;
   top: 6px;
 `;
+
+export const CardIconContainer = styled.div`
+  width: 28px;
+  height: 20px;
+  position: absolute;
+  right: 8px;
+  top: 4px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #94999e;
+  background-color: #ffffff;
+  box-sizing: border-box;
+
+  & svg {
+    width: 18px;
+    height: 11px;
+  }
+`;

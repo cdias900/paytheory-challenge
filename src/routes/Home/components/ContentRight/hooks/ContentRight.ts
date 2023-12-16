@@ -1,10 +1,10 @@
 import { FormEventHandler, useState } from 'react';
 import { ValidationError } from 'yup';
 
-import { formDataInitialState, getFormDataSchema } from 'constants/formData';
-
+import { formDataInitialState } from 'constants/formData';
 import { FormDataType, FormDataKeysType } from 'types/FormData';
 import { PaymentMethodType } from 'types/PaymentMethod';
+import { getFormDataSchema } from 'utils/formDataSchema';
 
 export const useContentRight = () => {
   const [checked, setChecked] = useState(false);

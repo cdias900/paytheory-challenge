@@ -6,6 +6,7 @@ import {
   Select,
   TermsOfService,
 } from 'components';
+import { getCardType } from 'utils/cardType';
 
 import {
   CardCVVInput,
@@ -84,6 +85,7 @@ export const ContentRight = () => {
               value={formData.cardNumber}
               onChange={e => onUpdateFormData('cardNumber', e.target.value)}
               error={formErrors.cardNumber}
+              cardType={getCardType(formData.cardNumber)}
             />
             <CardExpInput
               value={formData.cardExp}
