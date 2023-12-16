@@ -28,8 +28,10 @@
               {"pattern": "react", "group": "builtin", "position": "before"},
               {"pattern": "assets/**", "group": "internal", "position": "before"},
               {"pattern": "routes/**", "group": "internal", "position": "before"},
-              {"pattern": "components/**", "group": "internal"},
-              {"pattern": "config/**", "group": "internal"},
+              {"pattern": "components/**", "group": "internal", "position": "before"},
+              {"pattern": "constants/**", "group": "internal", "position": "before"},
+              {"pattern": "types/**", "group": "internal", "position": "before"},
+              {"pattern": "config/**", "group": "internal", "position": "before"},
               {"pattern": "./**", "group": "unknown"}
             ],
             "alphabetize": {

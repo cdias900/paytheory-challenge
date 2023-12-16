@@ -1,5 +1,4 @@
-import { ContentLeft, ContentRight } from 'components/index';
-
+import { ContentLeft, ContentRight } from './components';
 import { Container } from './Home.styles';
 
 export const Home = () => {

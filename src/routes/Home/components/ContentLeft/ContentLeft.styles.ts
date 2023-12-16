@@ -50,11 +50,11 @@ export const SummaryRow = styled.div`
 `;
 
 type SummaryItemProps = {
-  bold?: boolean;
+  $bold?: boolean;
 };
 
 export const SummaryItem = styled.span<SummaryItemProps>`
-  font-weight: ${({ bold }) => (bold ? 600 : 300)};
+  font-weight: ${({ $bold }) => ($bold ? 600 : 300)};
   font-size: 16px;
   line-height: 20px;
 `;

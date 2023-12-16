@@ -8,6 +8,7 @@ export const SelectContainer = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
+  margin-bottom: 32px;
 `;
 
 type SelectOptionType = {
@@ -32,7 +33,8 @@ export const SelectOption = styled.span<SelectOptionType>`
     filter: brightness(115%);
   }
 
-  &:active {
+  &:active,
+  &:focus {
     filter: brightness(90%);
   }
 `;

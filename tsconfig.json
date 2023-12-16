@@ -24,10 +24,4 @@
   "include": [
     "src"
   ],
-  "paths": {
-    "@routes/*": ["./routes/*"],
-    "@components/*": ["./components/*"],
-    "@assets/*": ["./assets/*"],
-    "@config/*": ["./config/*"]
-  }
 }
