@@ -33,7 +33,7 @@ const ITEMS = [
   {
     id: 1,
     name: 'Item Name',
-    price: 1.02,
+    price: 100,
   },
 ];
 
