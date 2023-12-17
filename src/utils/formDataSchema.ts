@@ -1,7 +1,6 @@
 import { object, string } from 'yup';
 
 import { validateEmail } from './validateEmail';
-import { validateExpDate } from './validateExpDate';
 import { validatePhoneNumber } from './validatePhoneNumber';
 import { ValidateZipcode } from './validateZipcode';
 
@@ -31,19 +30,9 @@ export const getFormDataSchema = (hasBillingAddress: boolean) =>
     cardName: string().required(
       'Please enter your name as displayed in your card',
     ),
-    cardNumber: string()
-      .required('Please enter your card number')
-      .min(18, 'Invalid card number')
-      .max(19, 'Invalid card number'),
-    cardExp: string()
-      .required('Please enter your card expiration date')
-      .test('is-valid-exp-date', 'Invalid expiration date', value =>
-        validateExpDate(value),
-      ),
-    cardCVV: string()
-      .required('Please enter your card CVV')
-      .min(3, 'Invalid CVV')
-      .max(4, 'Invalid CVV'),
+    cardNumber: string().required('Please enter your card number'),
+    cardExp: string().required('Please enter your card expiration date'),
+    cardCVV: string().required('Please enter your card CVV'),
 
     ...(hasBillingAddress
       ? {

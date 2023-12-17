@@ -1,7 +1,8 @@
-import { FormEventHandler, useState } from 'react';
+import { FormEventHandler, useEffect, useState } from 'react';
 import { ValidationError } from 'yup';
 
 import { formDataInitialState } from 'constants/formData';
+import { usePayment } from 'context/paymentContext';
 import { FormDataType, FormDataKeysType } from 'types/FormData';
 import { PaymentMethodType } from 'types/PaymentMethod';
 import { getFormDataSchema } from 'utils/formDataSchema';
@@ -11,6 +12,8 @@ export const useContentRight = () => {
   const [paymentMethod, setPaymentMethod] = useState<PaymentMethodType>('card');
   const [formData, setFormData] = useState<FormDataType>(formDataInitialState);
   const [formErrors, setFormErrors] = useState<Partial<FormDataType>>({});
+
+  const { createPayment } = usePayment();
 
   const onClickCheckbox = () => setChecked(c => !c);
 
@@ -30,7 +33,6 @@ export const useContentRight = () => {
 
   const onFormSubmit: FormEventHandler<HTMLFormElement> = async e => {
     e.preventDefault();
-    console.log('SUBMITTED', formData);
 
     const schema = getFormDataSchema(!checked);
 
@@ -39,6 +41,12 @@ export const useContentRight = () => {
         abortEarly: false,
         stripUnknown: true,
       });
+
+      if (Object.values(formErrors).some(value => !!value)) {
+        return;
+      }
+
+      createPayment(formData, checked);
     } catch (error) {
       if (error instanceof ValidationError) {
         const validationErrors: Partial<FormDataType> = {};
@@ -52,6 +60,67 @@ export const useContentRight = () => {
       }
     }
   };
+
+  useEffect(() => {
+    const cleanupFunction = window.paytheory.stateObserver(
+      (state: {
+        [key: string]: {
+          isDirty: boolean;
+          isFocused: boolean;
+          errorMessages: string[];
+        };
+      }) => {
+        const newErrors: Partial<FormDataType> = {
+          cardCVV: '',
+          cardExp: '',
+          cardNumber: '',
+        };
+        const newValues: Partial<FormDataType> = {
+          cardCVV: '',
+          cardExp: '',
+          cardNumber: '',
+        };
+
+        const states = [
+          {
+            key: 'cardNumber',
+            ...state['card-number'],
+          },
+          {
+            key: 'cardCVV',
+            ...state['card-cvv'],
+          },
+          {
+            key: 'cardExp',
+            ...state['card-exp'],
+          },
+        ];
+
+        states.forEach(item => {
+          if (
+            item.isDirty &&
+            !item.isFocused &&
+            item.errorMessages.length > 0
+          ) {
+            newErrors[item.key as FormDataKeysType] = item.errorMessages[0];
+          }
+
+          newValues[item.key as FormDataKeysType] = item.isDirty ? 'dirty' : '';
+        });
+
+        setFormErrors(prevErrors => ({
+          ...prevErrors,
+          ...newErrors,
+        }));
+        setFormData(prevData => ({
+          ...prevData,
+          ...newValues,
+        }));
+      },
+    );
+
+    return cleanupFunction;
+  }, []);
 
   return {
     checked,

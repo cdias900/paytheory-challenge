@@ -1,10 +1,7 @@
-import { Fragment, InputHTMLAttributes } from 'react';
+import { InputHTMLAttributes } from 'react';
 import InputMask from 'react-input-mask';
 
-import { cardIcons } from 'constants/cardIcons';
-
 import {
-  CardIconContainer,
   ErrorIcon,
   ErrorText,
   InputContainer,
@@ -17,13 +14,10 @@ export const Input = ({
   value,
   mask = '',
   error,
-  cardType,
   onChange,
   className,
   ...rest
 }: InputHTMLAttributes<HTMLInputElement> & InputProps) => {
-  const CardIcon = cardType ? cardIcons[cardType] : Fragment;
-
   return (
     <InputContainer className={className}>
       <InputMask
@@ -33,9 +27,6 @@ export const Input = ({
         maskPlaceholder={null}>
         <StyledInput type={type} $error={!!error} {...rest} />
       </InputMask>
-      {!error && !!cardType && (
-        <CardIconContainer>{CardIcon && <CardIcon />}</CardIconContainer>
-      )}
       {!!error && (
         <>
           <ErrorText>{error}</ErrorText>

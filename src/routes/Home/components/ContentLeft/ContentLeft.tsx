@@ -1,6 +1,7 @@
 import { Fragment } from 'react';
 
 import { Footer, SectionTitle } from 'components';
+import { usePayment } from 'context/paymentContext';
 
 import {
   AmountCurrency,
@@ -14,19 +15,8 @@ import {
   SummaryRow,
 } from './ContentLeft.styles';
 
-const ITEMS = [
-  {
-    id: 1,
-    name: 'Item Name',
-    price: 100,
-  },
-];
-
 export const ContentLeft = () => {
-  const totalPrice = ITEMS.reduce(
-    (previous, current) => previous + current.price,
-    0,
-  ).toFixed(2);
+  const { items, totalPrice, hasPaymentSucceded } = usePayment();
 
   return (
     <Container>
@@ -36,8 +26,8 @@ export const ContentLeft = () => {
         $ {totalPrice} <AmountCurrency>USD</AmountCurrency>
       </AmountTitle>
       <SectionTitle>Order Summary</SectionTitle>
-      <SummaryContainer>
-        {ITEMS.map(item => (
+      <SummaryContainer $success={hasPaymentSucceded}>
+        {items.map(item => (
           <Fragment key={item.id}>
             <SummaryRow>
               <SummaryItem>{item.name}</SummaryItem>

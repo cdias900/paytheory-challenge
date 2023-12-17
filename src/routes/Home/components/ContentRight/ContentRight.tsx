@@ -1,18 +1,19 @@
+import { ReactComponent as SuccessIcon } from 'assets/check-circle.svg';
+
 import {
   AddressInputs,
   Checkbox,
   FormGroup,
+  Loader,
+  SdkInput,
   SectionTitle,
   Select,
   TermsOfService,
 } from 'components';
-import { getCardType } from 'utils/cardType';
+import { usePayment } from 'context/paymentContext';
 
 import {
-  CardCVVInput,
-  CardExpInput,
   CardNameInput,
-  CardNumberInput,
   Container,
   EmailInput,
   FirstNameInput,
@@ -20,6 +21,9 @@ import {
   LastNameInput,
   PayButton,
   PhoneNumberInput,
+  PaymentSuccessText,
+  PaymentSuccessContainer,
+  PaymentSuccessDescription,
 } from './ContentRight.styles';
 import { useContentRight } from './hooks';
 
@@ -34,6 +38,23 @@ export const ContentRight = () => {
     paymentMethod,
     onUpdatePaymentMethod,
   } = useContentRight();
+  const { totalPrice, hasPaymentSucceded, isLoading } = usePayment();
+
+  if (hasPaymentSucceded) {
+    return (
+      <Container $success>
+        <PaymentSuccessContainer>
+          <SuccessIcon />
+          <PaymentSuccessText>
+            Your payment has been submitted.
+          </PaymentSuccessText>
+          <PaymentSuccessDescription>
+            A copy of your receipt has been sent to your email.
+          </PaymentSuccessDescription>
+        </PaymentSuccessContainer>
+      </Container>
+    );
+  }
 
   return (
     <Container>
@@ -81,20 +102,20 @@ export const ContentRight = () => {
             error={formErrors.cardName}
           />
           <InputRow>
-            <CardNumberInput
-              value={formData.cardNumber}
-              onChange={e => onUpdateFormData('cardNumber', e.target.value)}
+            <SdkInput
+              id="pay-theory-credit-card-number"
+              style={{ width: '50%' }}
               error={formErrors.cardNumber}
-              cardType={getCardType(formData.cardNumber)}
+              noErrorIcon
             />
-            <CardExpInput
-              value={formData.cardExp}
-              onChange={e => onUpdateFormData('cardExp', e.target.value)}
+            <SdkInput
+              id="pay-theory-credit-card-exp"
+              style={{ width: 'calc(25% - 12px)' }}
               error={formErrors.cardExp}
             />
-            <CardCVVInput
-              value={formData.cardCVV}
-              onChange={e => onUpdateFormData('cardCVV', e.target.value)}
+            <SdkInput
+              id="pay-theory-credit-card-cvv"
+              style={{ width: 'calc(25% - 12px)' }}
               error={formErrors.cardCVV}
             />
           </InputRow>
@@ -114,7 +135,9 @@ export const ContentRight = () => {
             />
           )}
         </FormGroup>
-        <PayButton>Pay $100.00 USD</PayButton>
+        <PayButton disabled={isLoading}>
+          Pay ${totalPrice} USD {isLoading && <Loader />}
+        </PayButton>
       </form>
       <TermsOfService />
     </Container>

@@ -1,5 +1,9 @@
 import { Home } from 'routes/index';
 
-export const App = () => {
-  return <Home />;
-};
+import { PaymentProvider } from 'context/paymentContext';
+
+export const App = () => (
+  <PaymentProvider>
+    <Home />
+  </PaymentProvider>
+);

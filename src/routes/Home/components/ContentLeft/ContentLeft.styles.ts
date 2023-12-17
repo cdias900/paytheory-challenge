@@ -37,8 +37,12 @@ export const AmountCurrency = styled.span`
   line-height: 24px;
 `;
 
-export const SummaryContainer = styled.div`
-  border: 1px solid #ced9e6;
+type SummaryContainerProps = {
+  $success: boolean;
+};
+
+export const SummaryContainer = styled.div<SummaryContainerProps>`
+  border: 1px solid ${({ $success }) => ($success ? '#32D583' : '#ced9e6')};
   border-radius: 24px;
   padding: 16px;
 `;

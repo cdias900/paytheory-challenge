@@ -15,7 +15,8 @@
         "sourceType": "module"
     },
     "plugins": [
-        "react"
+        "react",
+        "react-hooks"
     ],
     "rules": {
         "react/react-in-jsx-scope": "off",
@@ -40,7 +41,11 @@
               "caseInsensitive": true
             }
           }
-        ]
+        ],
+        "no-else-return": ["error"],
+        "no-useless-return": ["error"],
+        "react-hooks/rules-of-hooks": "error",
+        "react-hooks/exhaustive-deps": "warn"
     },
     "settings": {
       "import/resolver": {

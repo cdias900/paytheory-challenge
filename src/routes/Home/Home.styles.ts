@@ -5,7 +5,7 @@ export const Container = styled.main`
   flex-direction: row;
   gap: 32px;
   flex: 1;
-  height: 100%;
+  min-height: 100vh;
   max-width: 1194px;
   background-color: gray;
   margin: 0 24px;

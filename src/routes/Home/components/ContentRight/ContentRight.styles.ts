@@ -2,10 +2,14 @@ import styled from 'styled-components';
 
 import { Input } from 'components/Input';
 
-export const Container = styled.section`
+type ContainerProps = {
+  $success?: boolean;
+};
+
+export const Container = styled.section<ContainerProps>`
   flex: 1;
   margin: 24px 0;
-  border: 1px solid #ced9e6;
+  border: 1px solid ${({ $success }) => ($success ? '#32D583' : '#ced9e6')};
   border-radius: 24px;
   padding: 40px 32px;
   display: flex;
@@ -41,30 +45,6 @@ export const CardNameInput = styled(Input).attrs({
   placeholder: 'Name on Card',
 })``;
 
-export const CardNumberInput = styled(Input).attrs({
-  placeholder: 'Card Number',
-  mask: '9999 9999 9999 9999',
-})`
-  flex: unset;
-  width: 50%;
-`;
-
-export const CardExpInput = styled(Input).attrs({
-  placeholder: 'MM/YY',
-  mask: '99/99',
-})`
-  flex: unset;
-  width: calc(25% - 12px);
-`;
-
-export const CardCVVInput = styled(Input).attrs({
-  placeholder: 'CVV',
-  mask: '9999',
-})`
-  flex: unset;
-  width: calc(25% - 12px);
-`;
-
 export const PayButton = styled.button.attrs({
   type: 'submit',
 })`
@@ -80,13 +60,47 @@ export const PayButton = styled.button.attrs({
   line-height: 20px;
   gap: 8px;
   cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
 
-  &:hover {
+  &:disabled {
+    cursor: progress;
+  }
+
+  &:hover:not(:disabled) {
     filter: brightness(115%);
   }
 
-  &:active,
-  &:focus {
+  &:active:not(:disabled),
+  &:focus:not(:disabled) {
     filter: brightness(90%);
   }
+`;
+
+export const PaymentSuccessContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  align-self: center;
+  height: 100%;
+`;
+
+export const PaymentSuccessText = styled.span`
+  font-size: 24px;
+  font-weight: 300;
+  line-height: 24px;
+  color: #1b1b1b;
+  text-align: center;
+  margin: 4px 0;
+`;
+
+export const PaymentSuccessDescription = styled.span`
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 20px;
+  color: #1b1b1b;
+  text-align: center;
 `;
