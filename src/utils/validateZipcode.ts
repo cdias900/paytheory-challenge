@@ -1,4 +1,4 @@
-export const ValidateZipcode = (value?: string) => {
+export const validateZipcode = (value?: string) => {
   if (!value) {
     return false;
   }

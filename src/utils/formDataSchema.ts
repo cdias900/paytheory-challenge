@@ -2,11 +2,11 @@ import { object, string } from 'yup';
 
 import { validateEmail } from './validateEmail';
 import { validatePhoneNumber } from './validatePhoneNumber';
-import { ValidateZipcode } from './validateZipcode';
+import { validateZipcode } from './validateZipcode';
 
 const zipcodeSchema = string()
   .required('Please enter your zipcode')
-  .test('is-valid-zipcode', 'Invalid zipcode', value => ValidateZipcode(value));
+  .test('is-valid-zipcode', 'Invalid zipcode', value => validateZipcode(value));
 
 export const getFormDataSchema = (hasBillingAddress: boolean) =>
   object({
