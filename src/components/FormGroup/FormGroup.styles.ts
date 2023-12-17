@@ -6,6 +6,7 @@ export const Container = styled.fieldset`
   margin: 0 0 32px 0;
   border: none;
   padding: 0;
+  min-width: 0;
 `;
 
 export const GroupTitle = styled.legend`
